@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
+from functools import reduce
 def main():
     input_file = open('input','r')
     nums = [int(line.strip()) for line in input_file.readlines()]
+    ans = set()
 
-    diff_nums = [x for x in map(lambda x: (2020 - x),nums)]
+    for x in map(lambda x: (2020 - x),nums):
+        for y in map(lambda y:x - y, nums):
+            if y in nums:
+                ans.add(y)
 
-    filter_nums = [x for x in filter(lambda x: x in nums,diff_nums)]
-
-    print(nums)
-    print(diff_nums)
-    print(filter_nums)
-    print(filter_nums[1]*filter_nums[0])
+    print(ans)
+    print(reduce(lambda x,y: x*y,ans,1))
 
 if __name__ == '__main__':
     main()
