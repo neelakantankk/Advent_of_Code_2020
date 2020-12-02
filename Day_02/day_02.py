@@ -9,11 +9,14 @@ def main():
 
 
     for entry in passwords:
-        lower,upper = (int(x) for x in entry[0].split("-"))
-        count = entry[2].count(entry[1])
-        if count >= lower and count <= upper:
-            print(entry[2])
-            num_pass +=1
+        lower,upper = ((int(x) - 1) for x in entry[0].split("-"))
+
+        char_at_lower_true = entry[2][lower] == entry[1]
+        char_at_upper_true = entry[2][upper] == entry[1]
+
+        if char_at_lower_true ^ char_at_upper_true:
+            num_pass += 1
+        
     
     print(num_pass)
 
