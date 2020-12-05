@@ -32,6 +32,7 @@ def main():
         b_passes = [line.strip() for line in infile.readlines()]
 
     max_id = 0
+    seat_ids = []
 
     for b_pass in b_passes:
         seat_id = parse_b_pass(b_pass)
@@ -39,7 +40,15 @@ def main():
         if seat_id > max_id:
             max_id = seat_id
 
+        seat_ids.append(seat_id)
+
     print(max_id)
+    seat_ids_sorted = sorted(seat_ids)
+
+    missing = {x for x in range(seat_ids_sorted[0],seat_ids_sorted[-1]+1)} - set(seat_ids_sorted)
+
+    print(missing.pop())
+
 
 if __name__ == '__main__':
     main()
