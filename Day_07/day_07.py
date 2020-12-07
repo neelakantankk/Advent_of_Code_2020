@@ -13,12 +13,12 @@ def main():
     with open('input','r') as infile:
         entries = [line.strip() for line in infile.readlines()]
     
-    rules = {key:value for key,value in [parse_line(line) for line in entries]}
+    rules = {key:value for key,value in (parse_line(line) for line in entries)}
 
     def contains_shiny_gold(bag):
         if rules[bag] == []:
             return False
-        elif 'shiny gold' in [x[1] for x in rules[bag]]:
+        elif 'shiny gold' in (x[1] for x in rules[bag]):
             return True
         else:
             contains_bag = False
@@ -33,7 +33,7 @@ def main():
             sum_bags = 0
             for inner_bag in rules[bag]:
                 sum_bags += (int(inner_bag[0])*get_all_bags_in_bag(inner_bag[1])) 
-            return sum_bags + sum([int(bag[0]) for bag in rules[bag]])
+            return sum_bags + sum(int(bag[0]) for bag in rules[bag])
 
 
     count_of_bags = 0
