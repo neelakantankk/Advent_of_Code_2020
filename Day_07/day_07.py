@@ -1,5 +1,4 @@
 import re
-import pprint
 
 def parse_line(line):
     mo = re.search(r"^(.*?) bags contain (.*?)$", line)
@@ -47,4 +46,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
