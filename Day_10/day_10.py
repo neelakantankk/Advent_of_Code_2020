@@ -6,6 +6,7 @@ def main():
     with open(filename,'r') as infile:
         jolts = [int(line.strip()) for line in infile.readlines()]
 
+    #PART 1
     START = time.perf_counter()
     
     jolts.append(0)
@@ -24,6 +25,7 @@ def main():
     END = time.perf_counter()
     print(f"Time taken for Part 1: {END - START} seconds")
 
+    #PART 2
     START = time.perf_counter()
     graph = {}
     for jolt in jolts_sorted:
