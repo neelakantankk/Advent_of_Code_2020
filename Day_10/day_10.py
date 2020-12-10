@@ -29,7 +29,7 @@ def main():
     START = time.perf_counter()
     graph = {}
     for jolt in jolts_sorted:
-        diffs = [x for x in map(lambda x:jolt+x,(1,2,3))]
+        diffs = [(jolt+x) for x in (1,2,3)]
         diffs = [y for y in jolts_sorted if y in diffs]
         graph[jolt] = diffs
 
