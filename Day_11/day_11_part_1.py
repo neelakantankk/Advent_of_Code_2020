@@ -1,3 +1,5 @@
+import time
+
 def are_layouts_equal(old_layout, new_layout):
     for old_row,new_row in zip(old_layout,new_layout):
         for old_seat,new_seat in zip(old_row,new_row):
@@ -11,12 +13,6 @@ def count_occupied_seats(seats):
         count+= len([x for x in row if x == '#'])
     return count
     
-def print_layout(layout,label=None):
-    if label is not None:
-        print("{:-^80}".format(label))
-    for row in layout:
-        print(''.join(row))
-
 def get_adjacent_seats(seats,current_seat_row, current_seat_column):
     adjacent = dict()
     directions = {
@@ -30,19 +26,19 @@ def get_adjacent_seats(seats,current_seat_row, current_seat_column):
             'd_d_r':(1,1)
             }
     for key,value in directions.items():
-        try:
+        if current_seat_row == 0 and (key in ['up','d_u_l','d_u_r']):
+            adjacent[key] = '.'
+        elif current_seat_row == len(seats) - 1 and (key in ['down','d_d_r','d_d_l']):
+            adjacent[key] = '.'
+        elif current_seat_column == 0 and (key in ['left','d_u_l','d_d_l']):
+            adjacent[key] = '.'
+        elif current_seat_column == len(seats[0]) - 1 and (key in ['right','d_d_r','d_u_r']):
+            adjacent[key] = '.'
+        else:
             row_num = current_seat_row + value[0]
             col_num = current_seat_column + value[1]
-            if row_num<0:
-                row_num = len(seats)
-            if col_num<0:
-                col_num = len(seats)
             adjacent[key] = seats[row_num][col_num]
-        except IndexError:
-            adjacent[key] = None
-
     return adjacent
-
 
 def main():
     filename = 'example'
@@ -50,38 +46,31 @@ def main():
     with open(filename,'r') as infile:
         seats = [list(line.strip()) for line in infile.readlines()]
 
-#    print_layout(seats,"Seats at the beginning")
-
-
+    START = time.perf_counter_ns()
     while True:
         new_layout = []
         for row_index, row in enumerate(seats):
             new_row = []
             for col_index,seat in enumerate(row):
                 adjacent = get_adjacent_seats(seats,row_index, col_index)
-                #print(f"Seat ({row_index}, {col_index}) --> {adjacent}")
-                if seat == '.':
-                    new_row.append(seat)
-                elif list(adjacent.values()).count("#") >= 4:
+                if list(adjacent.values()).count("#") >= 4:
                     new_row.append("L")
                 elif list(adjacent.values()).count("#") == 0:
                     new_row.append("#")
                 else:
                     new_row.append(seat)
+
             new_layout.append(new_row)
 
         if are_layouts_equal(seats,new_layout):
             print(count_occupied_seats(seats))
-#            print_layout(seats,"Final Seats")
-#            print_layout(new_layout,"Final New Layout")
             break
         else:
-#            print_layout(new_layout,"New Layout")
             seats = new_layout.copy()
             new_layout = []
-            
 
-
+    END = time.perf_counter_ns()
+    print(f"Part 1 took {END - START} nanoseconds")
 
 if __name__ == '__main__':
     main()
