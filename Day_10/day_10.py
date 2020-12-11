@@ -7,7 +7,7 @@ def main():
         jolts = [int(line.strip()) for line in infile.readlines()]
 
     #PART 1
-    START = time.perf_counter()
+    START = time.perf_counter_ns()
     
     jolts.append(0)
 
@@ -22,11 +22,11 @@ def main():
 
 
     print(diffs[1] * diffs[3])
-    END = time.perf_counter()
-    print(f"Time taken for Part 1: {END - START} seconds")
+    END = time.perf_counter_ns()
+    print(f"Time taken for Part 1: {END - START} nanoseconds")
 
     #PART 2
-    START = time.perf_counter()
+    START = time.perf_counter_ns()
     graph = {}
     for jolt in jolts_sorted:
         diffs = [(jolt+x) for x in (1,2,3)]
@@ -44,9 +44,9 @@ def main():
                 solution[val]=solution[key]
     
     print(solution[jolts_sorted[-1]])
-    END = time.perf_counter()
+    END = time.perf_counter_ns()
 
-    print(f"Time taken for part 2: {END - START} seconds")
+    print(f"Time taken for part 2: {END - START} nanoseconds")
 
 if __name__ == '__main__':
     main()
