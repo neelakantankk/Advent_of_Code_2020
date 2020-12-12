@@ -52,13 +52,16 @@ def main():
         for row_index, row in enumerate(seats):
             new_row = []
             for col_index,seat in enumerate(row):
-                adjacent = get_adjacent_seats(seats,row_index, col_index)
-                if list(adjacent.values()).count("#") >= 4:
-                    new_row.append("L")
-                elif list(adjacent.values()).count("#") == 0:
-                    new_row.append("#")
-                else:
+                if seat == '.':
                     new_row.append(seat)
+                else:
+                    adjacent = get_adjacent_seats(seats,row_index, col_index)
+                    if list(adjacent.values()).count("#") >= 4:
+                        new_row.append("L")
+                    elif list(adjacent.values()).count("#") == 0:
+                        new_row.append("#")
+                    else:
+                        new_row.append(seat)
 
             new_layout.append(new_row)
 
