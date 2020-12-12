@@ -8,9 +8,11 @@ def main():
                         for line in infile.readlines()]
 
 
-    # Boat position is modelled as a vector. The movement commands are
-    # modelled as unit vectors. Rotation commands affect only the unit
-    # vector 'F'. Coordinates are changed using vector addition.
+    # Boat position and waypoint position are modelled as vectors.
+    # The direction commands are modelled as unit vectors that affect only the 
+    # Waypoint vector. The rotation commands rotate the waypoint using vector math
+    # The F command scalar multiplies the value and the waypoint vector and then
+    # adds that to the boat vector.
     boat_coords = (0,0)
     waypoint_coords = (10,1)
     movements = {
