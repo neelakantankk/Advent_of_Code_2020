@@ -11,35 +11,36 @@ def main():
     # Boat position is modelled as a vector. The movement commands are
     # modelled as unit vectors. Rotation commands affect only the unit
     # vector 'F'. Coordinates are changed using vector addition.
-    coords = [0,0]
+    coords = (0,0)
     movements = {
-        'N':(1,0),
-        'E':(0,1),
-        'S':(-1,0),
-        'W':(0,-1),
-        'F':(0,1)}
+        'N':(0,1),
+        'E':(1,0),
+        'S':(0,-1),
+        'W':(-1,0),
+        'F':(1,0)}
 
     for instruction,value in instructions:
         if instruction in 'LR':
             # 'F' is rotated using vector rotation.
             # value is converted to radians. L is counterclockwise, R is clockwise
-            # Value is negative if rotation is counterclockwise, positive otherwise
+            # Value is negative if rotation is clockwise, positive otherwise
             # 'F' is then replaced with the rotated vector.
 
-            x1,y1 = movements['F']
-            if instruction == 'L':
+            i,j = movements['F']
+            if instruction == 'R':
                 value_rad = math.radians(value * (-1))
             else:
                 value_rad = math.radians(value)
-            x2 = int((x1 * math.cos(value_rad)) - (y1 * math.sin(value_rad)))
-            y2 = int((x1 * math.sin(value_rad)) + (y1 * math.cos(value_rad)))
+            x2 = int((i * math.cos(value_rad)) - (j * math.sin(value_rad)))
+            y2 = int((i * math.sin(value_rad)) + (j * math.cos(value_rad)))
             movements['F'] = (x2,y2)
         else:
-            x,y = movements[instruction]
-            x1 = x*value
-            y1 = y*value
-            coords[0] += x1
-            coords[1] += y1
+            i,j = movements[instruction]
+            x1,y1 = coords
+            x2 = i*value
+            y2 = j*value
+
+            coords = (x1 + x2, y1 + y2)
 
     # Manhattan distance
     print(abs(coords[0]) + abs(coords[1]))
