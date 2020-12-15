@@ -7,7 +7,7 @@ def main():
     n = len(numbers)+1
     number_to_be_spoken = 0
 
-    while n<=2020:
+    while n<2020:
 
         if number_to_be_spoken in numbers.keys():
             next_number = n - numbers[number_to_be_spoken]
@@ -17,6 +17,7 @@ def main():
             numbers[number_to_be_spoken] = n
             number_to_be_spoken = 0
         n+=1
+    print(number_to_be_spoken)
             
 
 
