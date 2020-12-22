@@ -52,7 +52,7 @@ def main():
 
     player, winner = play_game(player_1,player_2)
 
-    print(f"Player {player} wins")
+    print(f"Player {player} wins!")
 
     score = 0
     for index,i in enumerate(reversed(winner),start=1):

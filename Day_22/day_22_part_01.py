@@ -26,8 +26,10 @@ def main():
 
     if len(player_1) == 0:
         winner = player_2
+        print(f"Player 2 wins!")
     else:
         winner = player_1
+        print(f"Player 1 wins!")
 
     score = 0
     for index,i in enumerate(winner[::-1],start=1):
