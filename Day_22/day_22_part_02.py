@@ -4,12 +4,10 @@ from itertools import islice
 
 def play_game(player_1,player_2):
     all_rounds = {1:set(),2:set()}
-    recursive_hand = False
-    while len(player_1) != 0 and len(player_2) != 0 and not recursive_hand:
+    while len(player_1) != 0 and len(player_2) != 0:
         t_player_1 = tuple(player_1)
         t_player_2 = tuple(player_2)
         if t_player_1 in all_rounds[1] and t_player_2 in all_rounds[2]:
-            recursive_hand = True
             return (1,player_1)
         else:
             all_rounds[1].add(t_player_1)
